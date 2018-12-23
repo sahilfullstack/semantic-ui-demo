@@ -10,7 +10,9 @@
     "add": "^2.0.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-dropdown": "^1.6.3",
     "react-scripts": "2.1.1",
+    "react-select": "^2.1.2",
     "semantic-ui": "^2.4.2",
     "semantic-ui-react": "^0.84.0",
     "typescript": "^3.2.2"

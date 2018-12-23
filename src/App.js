@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Grid, Dropdown } from 'semantic-ui-react'
+import Select from 'react-select';
 
 class App extends Component {
+     state = {
+          selectedOption: null,
+        }
 
   handleKeyDown(e, data) {
       
@@ -41,7 +45,39 @@ class App extends Component {
       }
   }
 
+  handleKeyDown2(e, data) {
+      
+     let code = e.keyCode
+    console.log("key code")
+    console.log(code)
+    console.log(e.target)
+    console.log(e)
+    console.log(data)
+
+    console.log("aria-expanded")
+    console.log(e.target.getAttribute("aria-expanded"))
+
+    if(code == 13)
+    {        
+         if(e.target.getAttribute("aria-expanded") == "false") {
+              console.log(e.target)
+         }
+         else{
+              console.log("wtfff")
+         }
+
+    }
+    
+    if(code == 38 || code == 40 ) {
+         if(e.target.getAttribute("aria-expanded") == "false") {
+              console.log("i am clicked by onkeydown")
+              e.target.click()
+         }
+     }
+ }
+
   render() {
+     const { selectedOption } = this.state;
     return (
       <div className="App">
         <header>
@@ -146,32 +182,22 @@ onClick={(e, data) => {
 
       </Grid.Column>
       <Grid.Column>
-                        <Dropdown placeholder='Select Friend'
-                        onBlur={(a, b) => {
-                                                        
-                                                    }}
-                        onClose={(a, b) => {
-                                                        
-                                                    }}
 
-                         fluid selection options={[
-   {
-     text: '1 Jenny Hess',
-     value: 'Jenny Hess'
-},{
-     text: 'SAhil Hess',
-     value: 'SAhil Hess'
-},{
-     text: 'Varun Hess',
-     value: 'Varun Hess'
-},{
-     text: 'Jen Hess',
-     value: 'Jen Hess'
-},{
-     text: 'ny Hess',
-     value: 'ny Hess'
-}]
-} />
+     <Select placeholder='Select Friend'
+        value={selectedOption}
+        isSearchable={false}
+        onChange={(selectedOption) => {
+          this.setState({ selectedOption });
+          console.log(`Option selected:`, selectedOption);
+        }}
+        options={[
+          { value: 'chocolate', label: 'Chocolate' },
+          { value: 'strawberry', label: 'Strawberry' },
+          { value: 'vanilla', label: 'Vanilla' }
+        ]}
+      />
+
+
       </Grid.Column>
     </Grid.Row>
   </Grid>
