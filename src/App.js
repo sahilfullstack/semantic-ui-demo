@@ -5,12 +5,39 @@ import { Grid, Dropdown } from 'semantic-ui-react'
 
 class App extends Component {
 
-  handleKeyDown(e) {
+  handleKeyDown(e, data) {
       
       let code = e.keyCode
-      console.log(code)
-      if(code == 13 || code == 38 || code == 40 ) {
-        e.target.click()
+     console.log("key code")
+     console.log(code)
+     console.log(e.target)
+     console.log(e)
+     console.log(data)
+
+     console.log("aria-expanded")
+     console.log(e.target.getAttribute("aria-expanded"))
+
+     if(code == 13)
+     {
+          console.log(e.target.getAttribute("aria-expanded") == false)
+          console.log(e.target.getAttribute("aria-expanded") == "false")
+          console.log(e.target.attributes)
+          if(e.target.getAttribute("aria-expanded") == "false") {
+               console.log("i am clicked by onkeydown")
+               e.target.focus()
+               console.log(e.target.focus)
+          }
+          else{
+               console.log("wtfff")
+          }
+
+     }
+     
+     if(code == 38 || code == 40 ) {
+          if(e.target.getAttribute("aria-expanded") == "false") {
+               console.log("i am clicked by onkeydown")
+               e.target.click()
+          }
       }
   }
 
@@ -33,6 +60,25 @@ class App extends Component {
     <Grid.Row>
       <Grid.Column>
         <Dropdown
+ onBlur={(e, data) => {
+     console.log("on blur is called")
+     console.log(data)
+ }}
+ 
+ onClose={(e, data) => {
+      if(e instanceof KeyboardEvent) {
+           e.preventDefault()
+      }
+     console.log("onClose is called")
+     console.log(e)
+     console.log(data)
+}}
+
+onClick={(e, data) => {
+     console.log("onClick is called")
+     console.log(e)
+     console.log(data)
+}}
         placeholder='Select Friend' fluid selection options={[
    {
      text: 'Jenny Hess',
@@ -54,7 +100,31 @@ class App extends Component {
 } />
       </Grid.Column>
       <Grid.Column>
-      <Dropdown  placeholder='Select Friend' fluid selection options={[
+      <Dropdown  placeholder='Select Friend' fluid selection 
+      
+      onKeyDown={this.handleKeyDown}
+      onBlur={(e, data) => {
+          console.log("on blur is called")
+          console.log(e.target)
+          console.log(data)
+      }}
+      
+      onClose={(e, data) => {
+           if(e instanceof KeyboardEvent) {
+                e.preventDefault()
+           }
+          console.log("onClose is called")
+
+          console.log(data)
+     }}
+     
+     onClick={(e, data) => {
+          console.log("onClick is called")
+          console.log(e.target)
+          console.log(data)
+     }}
+      
+      options={[
    {
      text: 'Jenny Hess',
      value: 'Jenny Hess'
@@ -76,7 +146,15 @@ class App extends Component {
 
       </Grid.Column>
       <Grid.Column>
-                        <Dropdown placeholder='Select Friend' fluid selection options={[
+                        <Dropdown placeholder='Select Friend'
+                        onBlur={(a, b) => {
+                                                        
+                                                    }}
+                        onClose={(a, b) => {
+                                                        
+                                                    }}
+
+                         fluid selection options={[
    {
      text: '1 Jenny Hess',
      value: 'Jenny Hess'
